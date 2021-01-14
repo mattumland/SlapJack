@@ -5,20 +5,22 @@ class Player {
     this.hand = [];
   }
 
-  playCard() {
+  drawCard() {
 /*
     check length of this.hand to confirm the player has cards
       remove the first CARD of the hand array
       return this CARD
 
-      !!!!where should this CARD go!!!!
+      this is used to create the variable inside addToCenter
 
     blank return when the HAND is empty
 */
   }
 
   saveWinsToStorage() {
-
+    /*
+    Read this.wins
+    */
   }
 }
 
