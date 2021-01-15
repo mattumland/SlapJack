@@ -10,11 +10,13 @@ var howToButton = document.querySelector("button");
 // GLOBAL VARIABLES
 var game = new Game;
 
+
 // EVENT LISTENERS
 window.addEventListener('load', function(){
   setLocalStorage();
   game.initialDeal();
 });
+
 
 
 
