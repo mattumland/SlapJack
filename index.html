@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Potta+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&family=Roboto+Mono:ital,wght@1,300&display=swap" rel="stylesheet">
     <title>Slap Jack</title>
   </head>
   <body>
-    <h1>SLAPJACK Player 1 takes the pile</h1>
+    <h1 id="popUp">SLAPJACK! Player 1 takes the pile</h1>
     <main>
       <div class="card-container">
-        <section>
+        <section id="p1Section" class="p1-area">
           <h2>Player 1</h2>
           <img src="./assets/back.png" alt="The back of a playing card">
-          <h3>0 wins</h3>
+          <h3 id="p1WinCount">0 WINS</h3>
         </section>
-        <section>
-          <img src="./assets/red-queen.png" alt="The back of a playing card">
+        <section class="center-pile">
+          <img id="centerPile" src="./assets/red-queen.png" alt="The back of a playing card">
           <!-- pile under the card -->
         </section>
-        <section>
+        <section id="p2Section" class="p2-area">
           <h2>Player 2</h2>
           <img src="./assets/back.png" alt="The back of a playing card">
-          <h3>0 WINS</h3>
+          <h3 id="p2WinCount">0 WINS</h3>
         </section>
       </div>
       <button>How to play</button>

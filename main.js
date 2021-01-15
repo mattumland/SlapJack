@@ -1,20 +1,17 @@
-// DOM VARIABLES
-/*
-  h1 Pop up messages
-  h2 player name
-  h3 win count
+// DOM ELEMENTS
+var popUp = document.querySelector("#popUp");
+var p1WinCount = document.querySelector("#p1WinCount");
+var p2WinCount = document.querySelector("#p2WinCount");
+var p1Zone = document.querySelector("#p1Section");
+var p2Zone = document.querySelector("#p2Section");
+var centerPile = document.querySelector("#centerPile"); //this is an img
+var howToButton = document.querySelector("button");
 
-  p1 section - h2, back img, win count
-  p2 section - h2, back img win count
-  center - pile shape (div), top of center pile face up
-
-  playArea - div that holds ^^^
-
-  howToButton - optional
-
-*/
+// GLOBAL VARIABLES
+var game = new Game;
 
 // EVENT LISTENERS
+
 
 /*
   Page load
