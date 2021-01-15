@@ -1,0 +1,60 @@
+/* GENERAL */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: black;
+}
+
+/* TYPE */
+h1 {
+  margin: 25px;
+  color: white;
+  font-family: 'MedievalSharp', cursive;
+  font-size: 3.5em;
+  text-align: center;
+}
+
+h2 {
+  color: white;
+  font-family: 'MedievalSharp', cursive;
+  font-size: 2em;
+}
+
+h3 {
+  color: white;
+  font-family: 'Potta One', cursive;
+  font-size: 1.5em;
+}
+
+/* PLAY AREA */
+
+
+/* CARDS */
+img {
+  width: 200px;
+  height: 280px;
+  border-radius: 5px;
+  object-fit: cover;
+
+}
+
+/*font-family: 'MedievalSharp', cursive;
+font-family: 'Potta One', cursive;  */
+
+/* RULE ORDER
+Size
+Display
+Flex rules
+Color
+Margin
+Border
+Padding
+Font
+Text
+Other
+
+ */
