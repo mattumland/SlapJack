@@ -14,11 +14,10 @@ class Game {
         newDeck.splice(getRandomElement(newDeck),0,pulledCard[0]);
       }
      return newDeck
-    }
+  }
 
-    function getRandomElement(array) {
+  getRandomElement(array) {
       return Math.floor(Math.random() * array.length);
-    }
   }
 
   initialDeal() {
@@ -49,7 +48,7 @@ class Game {
 
 
   slap() { //CAN I DO THIS WITHOUT parameters/ANON function
-    
+
 
 
 
@@ -85,7 +84,7 @@ class Game {
     // location.reload(); MAYBE SKIP THIS AND RESET THINGS MANUALLY
     // IS IT A PROBLEM TO RELOAD IMMEDIATELY UPON LOADING?
     // Randomize starting player
-    // this.centerPile = [];
+    this.centerPile = [];
     initialDeal()
   }
 
