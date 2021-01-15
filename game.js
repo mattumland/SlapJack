@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.player1 = new Player(1); //should these be instatiated elsewhere?
-    this.player2 = new Player(2);
+    this.player1 = new Player('player1'); //should these be instatiated elsewhere?
+    this.player2 = new Player('player2');
     this.centerPile = [];
     this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
   }
@@ -14,7 +14,6 @@ class Game {
       }
      return newDeck
     }
-  }
 
   getRandomElement(array) {
     return Math.floor(Math.random() * array.length);
@@ -81,7 +80,7 @@ class Game {
     // location.reload(); MAYBE SKIP THIS AND RESET THINGS MANUALLY
     // IS IT A PROBLEM TO RELOAD IMMEDIATELY UPON LOADING?
     // Randomize starting player
-    // this.centerPile = [];
+    this.centerPile = [];
     initialDeal()
   }
 
