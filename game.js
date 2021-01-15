@@ -1,53 +1,66 @@
 class Game {
   constructor() {
-    this.player1 = new Player('Player 1'); //should these be instatiated elsewhere?
-    this.player2 = new Player('Player 2');
-    this.centerPile = []; //center deck
-    this.currentTurn = 'player1'; //default to player1 consider adding a method to randomize starting player
+    this.player1 = new Player(1); //should these be instatiated elsewhere?
+    this.player2 = new Player(2);
+    this.centerPile = [];
+    this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
     // fullDeck array is in a separate file
   }
 
   shuffle(deck) {
-    /*
-      may need to shuffle decks so including a param
-      Double check if this is necessary
-    */
+      var newDeck = deck.slice(0); //don't change the initial array
+      for (var i = 0; i < newDeck.length; i++) {
+        var pulledCard = newDeck.splice(getRandomElement(newDeck),1);
+        newDeck.splice(getRandomElement(newDeck),0,pulledCard[0]);
+      }
+     return newDeck
+    }
+
+    function getRandomElement(array) {
+      return Math.floor(Math.random() * array.length);
+    }
   }
 
   initialDeal() {
-    /*
-    Get called on page load
-    Load data into dummy array
-    Shuffle dummy array
-    Separates allCards into 2 arrays (p1Hand p2Hand)
-    Pushes p1&2Hand into player1.hands
-    */
+    var shufDeck = shuffle(fullDeck); //shuffle starting deck
+    this.player1.hand = shufDeck.splice(0,26); //give 1/2 the shuffled deck to p1
+    this.player1.hand = shufDeck.splice(0,26); //give other half of shuffled deck to p2
   }
 
-  addToCenter() {
-/*
-    Get called following keystroke event
-    newCard = player1.drawCard
-    unshift to centerPile to ensure the new card is 'on top
-    call updateCenter()
-*/
+  addToCenterPile() {
+    // HOW DOES IT KNOW WHICH PLAYER THIS IS?
+    // Error handling to compare the keystroke with currentTurn. If q check currentTurn = player 1 else "wait your turn" If p check for player 2 else..
+    playCard = //player.drawCard;
+    this.centerPile.unshift(playCard); //add new card to the top of centerPile
+    changeTurn(); //check for remain cards
+    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM
+    // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
 
-  updateCenter() {
-/*
-  return this.centerPile to allow main to update dom
-*/
+  changeTurn() {
+    var nextPlayer = this.turnTracker[1]; //nextPlayer = 'player2'
+    if (this[nextPlayer].hand.length > 0) {
+      var playerChanger = this.turnTracker.shift();
+      turnTracker.push(playerChanger);
+    }
+    // HOW DOES THIS FUNCTION GET PASSED INTO MAIN AND UPDATED ON THE PAGE?
+    // Maybe this should fire on keystrokes
   }
 
-  slap() { //CAN I DO THIS WITH parameters/ANON function
+
+  slap() { //CAN I DO THIS WITHOUT parameters/ANON function
+    
+
+
+
 /*
   !!!!GAME CAN DETERMINE WHICH PLAYER SLAPS BY READING KEYSTROKE,
   checks center pile for jack (top 1), doubles (top 2) or sandwich (top 3)
   if slap is legel
     push this.centerPile into slapPlayer.hand
-    return message to push to h1
+    return message to update h1
 
-  make sure this clears the centerPil
+  make sure this clears the centerPile
   else
   !!!!!  pop? to remove from bottom of slapPlayer.hand
   !!!!!  push into otherPlayer
@@ -57,6 +70,7 @@ class Game {
   updateWinCount for the opposite player
     return message to push to h1
     newGame();
+// Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then th slapping player should become the currentPlayer
 
 */
   }
@@ -68,7 +82,10 @@ class Game {
   }
 
   newGame() {
-    location.reload();
+    // location.reload(); MAYBE SKIP THIS AND RESET THINGS MANUALLY
+    // IS IT A PROBLEM TO RELOAD IMMEDIATELY UPON LOADING?
+    // Randomize starting player
+    // this.centerPile = [];
     initialDeal()
   }
 
