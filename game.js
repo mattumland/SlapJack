@@ -4,7 +4,6 @@ class Game {
     this.player2 = new Player(2);
     this.centerPile = [];
     this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
-    // fullDeck array is in a separate file
   }
 
   shuffle(deck) {
@@ -15,10 +14,10 @@ class Game {
       }
      return newDeck
     }
+  }
 
-    function getRandomElement(array) {
-      return Math.floor(Math.random() * array.length);
-    }
+  getRandomElement(array) {
+    return Math.floor(Math.random() * array.length);
   }
 
   initialDeal() {
@@ -49,9 +48,6 @@ class Game {
 
 
   slap() { //CAN I DO THIS WITHOUT parameters/ANON function
-    
-
-
 
 /*
   !!!!GAME CAN DETERMINE WHICH PLAYER SLAPS BY READING KEYSTROKE,
