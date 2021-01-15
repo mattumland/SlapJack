@@ -29,18 +29,16 @@ window.addEventListener('load', function(){
   j keystroke - p2 slap center
 */
 
-// function upateFromStorage
+// function upateStoredWins() {
 
-
-// function startGame
-// currentGame = new Game;
+}
 
 function setLocalStorage() { //NOT COMPLETE
-  // if (localStorage.getItem('storedWinData') === null) {
-  //   // activityData = [];
-  //   var stringify = JSON.stringify('WWWWWWWWWWW');
-  //   localStorage.setItem('storedWinData', stringify)
-  // } else {
-  // // what do I if the localstorage isnt empty;
-  // }
+  if (localStorage.getItem('storedWinData') === null) {
+    winData = {'player1': 0, 'player2': 0};
+    var stringify = JSON.stringify('WWWWWWWWWWW');
+    localStorage.setItem('storedWinData', stringify)
+  } else {
+  // what do I if the localstorage isnt empty;
+  }
 }
