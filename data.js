@@ -1,4 +1,4 @@
-fullDeck = [
+var fullDeck = [
   './assets/blue-01.png',
   './assets/blue-02.png',
   './assets/blue-03.png',

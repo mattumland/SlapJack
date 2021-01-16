@@ -7,7 +7,7 @@ class Player {
 
   drawCard() {
     if (this.hand.length > 0) {
-      return this.hand.shift;
+      return this.hand.shift();
     }
     return;
 
