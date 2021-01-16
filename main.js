@@ -10,30 +10,35 @@ var howToButton = document.querySelector("button");
 // GLOBAL VARIABLES
 var game = new Game();
 
-
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
-
-
-  if (e.code === "KeyQ") {
+  if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
+    game.addToCenterPile(game.player1, game.player2);
+    updateCenterDisplay();
+    updateCurrentTurnDisplay();
+  } else if (e.code === "KeyQ") {
+    popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
   }
 
   if (e.code === "KeyF" && game.player1.hand === 0) {
-    game.comebackSlap(player1, player2);
+    game.comebackSlap(game.player1, game.player2);
   } else if (e.code === "KeyF") {
-      game.slap(player1, player2);
+      game.slap(game.player1, game.player2);
   }
 
-  if (e.code === "KeyP") {
-    // player2 drawCard
-    console.log(`P`);
+  if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
+    game.addToCenterPile(game.player2, game.player1);
+    updateCenterDisplay();
+    updateCurrentTurnDisplay();
+  } else if (e.code === "KeyP") {
+    popUp.innerText = `WAIT YOUR TURN PLAYER 2!`;
   }
 
   if (e.code === "KeyJ"&& game.player2.hand === 0) {
-    game.comebackSlap(player2, player1);
+    game.comebackSlap(game.player2, game.player1);
   } else if (e.code === "KeyJ") {
-    game.slap(player2, player1);
+    game.slap(game.player2, game.player1);
   }
 
 });
@@ -75,4 +80,8 @@ function updateCenterDisplay() {
     // Use string methods to remove "./assets/" and ".png"
     // centerPileImg.alt = altText
   // ADD FUNCTION TO CREATE A CARD PILE UNDER THE FRONT CARD
+}
+
+function updateCurrentTurnDisplay() {
+
 }
