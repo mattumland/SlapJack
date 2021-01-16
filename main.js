@@ -8,26 +8,36 @@ var centerPile = document.querySelector("#centerPile"); //this is an img
 var howToButton = document.querySelector("button");
 
 // GLOBAL VARIABLES
-var game = new Game;
+var curentGame = new Game();
+
 
 // EVENT LISTENERS
-window.addEventListener('load', onLoad);
+window.addEventListener('load', pageLoad);
+window.addEventListener('keydown' function(e) {
+  if (e.code === "KeyQ") {
+    // player1 drawCard
+    console.log(`Q`);
+  }
 
+  if (e.code === "KeyF") {
+    // player1 slap
+  }
 
+  if (e.code === "KeyP") {
+    // player2 drawCard
+  }
 
-/*
-  q keystroke - P1 draw card
-  f keystroke - p1 slap center
-  p keystroke - p2 draw card
-  j keystroke - p2 slap center
-*/
+  if (e.code === "KeyJ") {
+    // player2 slap
+  }
+});
 
-function onLoad() {
-  setLocalStorage();
+function pageLoad() {
+  // setLocalStorage();
   game.initialDeal();
 }
 
-function setLocalStorage() { //NOT COMPLETE
+function setLocalStorage() {
   if (localStorage.getItem('storedWinData') === null) {
     winData = {'player1': 0, 'player2': 0};
     var stringifyWins = JSON.stringify('winData');
