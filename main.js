@@ -15,13 +15,11 @@ var game = new Game();
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
   if (e.code === "KeyQ") {
-    // game.player
-    console.log(`Q`);
   }
 
   if (e.code === "KeyF") {
     // player1 slap
-    console.log(`F`);
+    game.slap(player1, player2);
   }
 
   if (e.code === "KeyP") {
@@ -31,7 +29,7 @@ window.addEventListener('keydown', function(e) {
 
   if (e.code === "KeyJ") {
     // player2 slap
-    console.log(`J`);
+    game.slap(player2, player1);
   }
 })
 
@@ -63,6 +61,7 @@ function updateWinCount(wins) {
 }
 
 function updateCenterDisplay() {
+  // add conditional to prevent fail with empty array
   var newTopCard = game.centerPile[0];
   centerPileImg.src= newTopCard;
   // ADD FUNCTION TO UPDATE THE ALT TEXT TO REPRESENT THE CARD FACE

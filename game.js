@@ -46,45 +46,52 @@ class Game {
   }
 
 
-  slap(player) {
-    if (this.centerPile[0].includes('jack')) {
-      player.hand.push(this.centerPile); //add centerPile to
-      this.shuffle(player.hand);
-      this.centerPile = [];
+  slap(slapPlayer, otherPlayer) {
+    //MUST BE A JACK TO GET BACK IN THE GAME 
+
+    if (this.centerPile[0].includes('jack')) { //check for jack
+      this.addCenterPileToHand(slapPlayer);
+      return `SLAPJACK! ${slapPlayer.id} takes the pile`;
     }
 
-/*
-  !!!!GAME CAN DETERMINE WHICH PLAYER SLAPS BY READING KEYSTROKE,
-  checks center pile for jack (top 1), doubles (top 2) or sandwich (top 3)
-  if slap is legel
-    push this.centerPile into slapPlayer.hand
-    return message to update h1
+    if (this.centerPile[0] === this.centerPile[1]) { //check for double
+      this.addCenterPileToHand(slapPlayer);
+      return `DOUBLES! ${slapPlayer.id} takes the pile`;
+    }
 
-  make sure this clears the centerPile
-  else
-  !!!!!  pop? to remove from bottom of slapPlayer.hand
-  !!!!!  push into otherPlayer
-    return message to push to h1
+    if (this.centerPile[0] === this.centerPile[2]) { //check for sandwich
+      this.addCenterPileToHand(slapPlayer);
+      return `SANDWICH! ${slapPlayer.id} takes the pile`;
+    }
 
-  This also needs to see if player.hand === 0, if so a bad slap will call
-  updateWinCount for the opposite player
-    return message to push to h1
-    newGame();
-// Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then th slapping player should become the currentPlayer
+    if (slapPlayer.hand.length === 0) { //assume bad slap check for empty to confirm win
+      this.updateWinCount(otherPlayer); //update win count for the other player
+      return this.newGame(otherPlayer); //start new game, return winner message
+    }
 
-*/
+    var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
+    otherPlayer.hand.push(forfeitCard);
+    return `BAD SLAP! ${slapPlayer} loses 1 card`;
+    // Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then the slapping player should become the currentPlayer
+}
+
+  addCenterPileToHand(player) {
+    var newHand = player.hand.concat(this.centerPile); //join both hands in new var
+    player.hand = newHand; //reassign hand using new var
+    this.shuffle(player.hand);
+    this.centerPile = []; //ensure centerPile is empty
   }
 
   updateWinCount(player) {
     player.wins++;
     player.wins.saveWinsToStorage();
-    this.newGame();
   }
 
-  newGame() {
+  newGame(winner) {
     // Randomize starting player
     this.centerPile = [];
     this.initialDeal()
+    return `${winner} WINS!`;
   }
 
 }
