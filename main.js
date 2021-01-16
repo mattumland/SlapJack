@@ -8,12 +8,12 @@ var centerPile = document.querySelector("#centerPile"); //this is an img
 var howToButton = document.querySelector("button");
 
 // GLOBAL VARIABLES
-var curentGame = new Game();
+var game = new Game();
 
 
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
-window.addEventListener('keydown' function(e) {
+window.addEventListener('keydown', function(e) {
   if (e.code === "KeyQ") {
     // player1 drawCard
     console.log(`Q`);
@@ -21,16 +21,19 @@ window.addEventListener('keydown' function(e) {
 
   if (e.code === "KeyF") {
     // player1 slap
+    console.log(`F`);
   }
 
   if (e.code === "KeyP") {
     // player2 drawCard
+    console.log(`P`);
   }
 
   if (e.code === "KeyJ") {
     // player2 slap
+    console.log(`J`);
   }
-});
+})
 
 function pageLoad() {
   // setLocalStorage();

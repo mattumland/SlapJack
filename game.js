@@ -9,10 +9,10 @@ class Game {
   shuffle(deck) {
       var newDeck = deck.slice(0); //don't change the initial array
       for (var i = 0; i < newDeck.length; i++) {
-        var pulledCard = newDeck.splice(getRandomElement(newDeck),1);
-        newDeck.splice(getRandomElement(newDeck),0,pulledCard[0]);
+        var pulledCard = newDeck.splice(this.getRandomElement(newDeck),1);
+        newDeck.splice(this.getRandomElement(newDeck),0,pulledCard[0]);
       }
-     return newDeck
+     return newDeck;
     }
 
   getRandomElement(array) {
@@ -20,7 +20,7 @@ class Game {
   }
 
   initialDeal() {
-    var shufDeck = shuffle(fullDeck); //shuffle starting deck
+    var shufDeck = this.shuffle(fullDeck); //shuffle starting deck
     this.player1.hand = shufDeck.splice(0,26); //give 1/2 the shuffled deck to p1
     this.player1.hand = shufDeck.splice(0,26); //give other half of shuffled deck to p2
   }
@@ -30,8 +30,8 @@ class Game {
     // Error handling to compare the keystroke with currentTurn. If q check currentTurn = player 1 else "wait your turn" If p check for player 2 else..
     playCard = //player.drawCard;
     this.centerPile.unshift(playCard); //add new card to the top of centerPile
-    changeTurn(); //check for remain cards
-    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anything
+    this.changeTurn(); //check for remain cards
+    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
     // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
 
@@ -73,15 +73,13 @@ class Game {
   updateWinCount(player) {
     player.wins++;
     player.wins.saveWinsToStorage();
-    newGame();
+    this.newGame();
   }
 
   newGame() {
     // Randomize starting player
     this.centerPile = [];
-    initialDeal()
+    this.initialDeal()
   }
 
 }
-
-module.exports = Game;
