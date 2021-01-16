@@ -31,7 +31,7 @@ class Game {
     playCard = //player.drawCard;
     this.centerPile.unshift(playCard); //add new card to the top of centerPile
     changeTurn(); //check for remain cards
-    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM
+    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anything
     // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
 
@@ -77,8 +77,6 @@ class Game {
   }
 
   newGame() {
-    // location.reload(); MAYBE SKIP THIS AND RESET THINGS MANUALLY
-    // IS IT A PROBLEM TO RELOAD IMMEDIATELY UPON LOADING?
     // Randomize starting player
     this.centerPile = [];
     initialDeal()

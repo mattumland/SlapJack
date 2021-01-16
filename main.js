@@ -10,37 +10,45 @@ var howToButton = document.querySelector("button");
 // GLOBAL VARIABLES
 var game = new Game;
 
-
 // EVENT LISTENERS
-window.addEventListener('load', function(){
-  setLocalStorage();
-  game.initialDeal();
-});
-
+window.addEventListener('load', onLoad);
 
 
 
 /*
-  Page load
-      Pull local storage
-      Update dom with win count
-      Insatiate a new game object
   q keystroke - P1 draw card
   f keystroke - p1 slap center
   p keystroke - p2 draw card
   j keystroke - p2 slap center
 */
 
-// function upateStoredWins() {
-
+function onLoad() {
+  setLocalStorage();
+  game.initialDeal();
 }
 
 function setLocalStorage() { //NOT COMPLETE
   if (localStorage.getItem('storedWinData') === null) {
     winData = {'player1': 0, 'player2': 0};
-    var stringify = JSON.stringify('WWWWWWWWWWW');
-    localStorage.setItem('storedWinData', stringify)
+    var stringifyWins = JSON.stringify('winData');
+    localStorage.setItem('storedWinData', stringifyWins)
   } else {
-  // what do I if the localstorage isnt empty;
+  var storedWins = getStoredWins();
+  updateWinCount(storedWins);
   }
 }
+
+function getStoredWins() {
+  var storedWins = localStorage.getItem('storedWinData');
+  return JSON.parse(storedWins);
+}
+
+function updateWinCount(wins) {
+  p1WinCount.innerText = `${wins.player1} WINS`;
+  p2WinCount.innerText = `${wins.player2} WINS`;
+}
+
+// function updateCenter
+// call game.addToCenterPile()
+// pull game.centerPile[0] inject into src
+// build little card bottoms under it for every couple of cards to invoke the stack
