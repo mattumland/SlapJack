@@ -1,9 +1,9 @@
 class Game {
   constructor() {
-    this.player1 = new Player('player1'); //should these be instatiated elsewhere?
-    this.player2 = new Player('player2');
+    this.player1 = new Player('Player 1'); //should these be instatiated elsewhere?
+    this.player2 = new Player('Player 2');
     this.centerPile = [];
-    this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
+    this.turnTracker = ['Player 1','Player 2']; //default to player1 consider adding a method to randomize starting player
   }
 
   shuffle(deck) {
@@ -26,11 +26,12 @@ class Game {
   }
 
   addToCenterPile() {
-    // HOW DOES IT KNOW WHICH PLAYER THIS IS?
-    // Error handling to compare the keystroke with currentTurn. If q check currentTurn = player 1 else "wait your turn" If p check for player 2 else..
     playCard = //player.drawCard;
     this.centerPile.unshift(playCard); //add new card to the top of centerPile
     this.changeTurn(); //check for remain cards
+    if (player1.hand.length === 0 && player2.hand.length === 0) {
+      this.initialDeal();
+    }
     // return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
     // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
@@ -39,47 +40,67 @@ class Game {
     var nextPlayer = this.turnTracker[1]; //nextPlayer = 'player2'
     if (this[nextPlayer].hand.length > 0) {
       var playerChanger = this.turnTracker.shift();
-      turnTracker.push(playerChanger);
+      turnTracker.push(playerChanger); //change order of the array
     }
     // HOW DOES THIS FUNCTION GET PASSED INTO MAIN AND UPDATED ON THE PAGE?
     // Maybe this should fire on keystrokes
   }
 
 
-  slap() { //CAN I DO THIS WITHOUT parameters/ANON function
+  slap(slapPlayer, otherPlayer) {
+    //MUST BE A JACK TO GET BACK IN THE GAME
+    //
 
-/*
-  !!!!GAME CAN DETERMINE WHICH PLAYER SLAPS BY READING KEYSTROKE,
-  checks center pile for jack (top 1), doubles (top 2) or sandwich (top 3)
-  if slap is legel
-    push this.centerPile into slapPlayer.hand
-    return message to update h1
+    if (this.centerPile[0].includes('jack')) { //check for jack
+      this.addCenterPileToHand(slapPlayer);
+      return `SLAPJACK! ${slapPlayer.id} takes the pile`;
+    }
 
-  make sure this clears the centerPile
-  else
-  !!!!!  pop? to remove from bottom of slapPlayer.hand
-  !!!!!  push into otherPlayer
-    return message to push to h1
+    if (this.centerPile[0] === this.centerPile[1]) { //check for double
+      this.addCenterPileToHand(slapPlayer);
+      return `DOUBLES! ${slapPlayer.id} takes the pile`;
+    }
 
-  This also needs to see if player.hand === 0, if so a bad slap will call
-  updateWinCount for the opposite player
-    return message to push to h1
-    newGame();
-// Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then th slapping player should become the currentPlayer
+    if (this.centerPile[0] === this.centerPile[2]) { //check for sandwich
+      this.addCenterPileToHand(slapPlayer);
+      return `SANDWICH! ${slapPlayer.id} takes the pile`;
+    }
 
-*/
+    var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
+    otherPlayer.hand.push(forfeitCard);
+    return `BAD SLAP! ${slapPlayer} loses 1 card`;
+    // Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then the slapping player should become the currentPlayer
+}
+
+  comebackSlap(slapPlayer, otherPlayer) {
+    if (this.centerPile[0].includes('jack')) { //check for jack
+      this.addCenterPileToHand(slapPlayer);
+      this.turnTracker = [slapPlayer.id, otherPlayer.id];
+      return `SLAPJACK! ${slapPlayer.id} is back in the game`;
+    }
+
+      this.updateWinCount(otherPlayer); // assume bad slap, update win count for the other player
+      return this.newGame(otherPlayer); //start new game, return winner message
+  }
+
+  addCenterPileToHand(player) {
+    var newHand = player.hand.concat(this.centerPile); //join both hands in new var
+    player.hand = newHand; //reassign hand using new var
+    this.shuffle(player.hand);
+    this.centerPile = []; //ensure centerPile is empty
   }
 
   updateWinCount(player) {
     player.wins++;
     player.wins.saveWinsToStorage();
-    this.newGame();
   }
 
-  newGame() {
+  newGame(winner) {
     // Randomize starting player
     this.centerPile = [];
+    this.turnTracker = ['Player 1','Player 2'];
     this.initialDeal()
+    return `${winner} WINS!`;
   }
 
 }
