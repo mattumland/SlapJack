@@ -1,9 +1,9 @@
 class Game {
   constructor() {
-    this.player1 = new Player('Player 1'); //should these be instatiated elsewhere?
-    this.player2 = new Player('Player 2');
+    this.player1 = new Player('1'); //should these be instatiated elsewhere?
+    this.player2 = new Player('2');
     this.centerPile = [];
-    this.turnTracker = ['Player 1','Player 2']; //default to player1 consider adding a method to randomize starting player
+    this.turnTracker = ['1','2']; //default to player1 consider adding a method to randomize starting player
   }
 
   shuffle(deck) {
@@ -22,7 +22,7 @@ class Game {
   initialDeal() {
     var shufDeck = this.shuffle(fullDeck); //shuffle starting deck
     this.player1.hand = shufDeck.splice(0,26); //give 1/2 the shuffled deck to p1
-    this.player1.hand = shufDeck.splice(0,26); //give other half of shuffled deck to p2
+    this.player2.hand = shufDeck.splice(0,26); //give other half of shuffled deck to p2
   }
 
   addToCenterPile(currentPlayer, otherPlayer) {
@@ -37,39 +37,40 @@ class Game {
   }
 
   changeTurn() {
-    var nextPlayer = this.turnTracker[1];
-    if (nextPlayer.hand.length > 0) {
+    var nextPlayer = `player${this.turnTracker[1]}`;
+    if (this[nextPlayer].hand.length > 0) {
       var turnChanger = this.turnTracker.shift(); //change order of the array
-      turnTracker.push(turnChanger);
+      this.turnTracker.push(turnChanger);
+      console.log(this.turnTracker);
     }
   }
 
   slap(slapPlayer, otherPlayer) {
     if (this.centerPile[0].includes('jack')) { //check for jack
       this.addCenterPileToHand(slapPlayer);
-      return `SLAPJACK! ${slapPlayer.id} takes the pile`;
+      return `SLAPJACK! Player ${slapPlayer.id} takes the pile`;
     }
 
     if (this.centerPile[0] === this.centerPile[1]) { //check for double
       this.addCenterPileToHand(slapPlayer);
-      return `DOUBLES! ${slapPlayer.id} takes the pile`;
+      return `DOUBLES! Player ${slapPlayer.id} takes the pile`;
     }
 
     if (this.centerPile[0] === this.centerPile[2]) { //check for sandwich
       this.addCenterPileToHand(slapPlayer);
-      return `SANDWICH! ${slapPlayer.id} takes the pile`;
+      return `SANDWICH! Player ${slapPlayer.id} takes the pile`;
     }
 
     var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
     otherPlayer.hand.push(forfeitCard);
-    return `BAD SLAP! ${slapPlayer} loses 1 card`;
+    return `BAD SLAP! Player ${slapPlayer} loses 1 card`;
 }
 
   comebackSlap(slapPlayer, otherPlayer) {
     if (this.centerPile[0].includes('jack')) { //check for jack
       this.addCenterPileToHand(slapPlayer);
       this.turnTracker = [slapPlayer.id, otherPlayer.id];
-      return `SLAPJACK! ${slapPlayer.id} is back in the game`;
+      return `SLAPJACK! Player ${slapPlayer.id} is back in the game`;
     }
 
       this.updateWinCount(otherPlayer); // assume bad slap, update win count for the other player

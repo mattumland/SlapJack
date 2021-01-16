@@ -73,6 +73,7 @@ function updateWinCount(wins) {
 function updateCenterDisplay() {
   // add conditional to prevent fail with empty array
   var newTopCard = game.centerPile[0];
+  console.log(newTopCard);
   centerPileImg.src= newTopCard;
   // ADD FUNCTION TO UPDATE THE ALT TEXT TO REPRESENT THE CARD FACE
     // Update source image names to be more readable ("Red_4")
