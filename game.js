@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.player1 = new Player('player1'); //should these be instatiated elsewhere?
-    this.player2 = new Player('player2');
+    this.player1 = new Player('Player 1'); //should these be instatiated elsewhere?
+    this.player2 = new Player('Player 2');
     this.centerPile = [];
     this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
   }
@@ -39,14 +39,19 @@ class Game {
     var nextPlayer = this.turnTracker[1]; //nextPlayer = 'player2'
     if (this[nextPlayer].hand.length > 0) {
       var playerChanger = this.turnTracker.shift();
-      turnTracker.push(playerChanger);
+      turnTracker.push(playerChanger); //change order of the array
     }
     // HOW DOES THIS FUNCTION GET PASSED INTO MAIN AND UPDATED ON THE PAGE?
     // Maybe this should fire on keystrokes
   }
 
 
-  slap() { //CAN I DO THIS WITHOUT parameters/ANON function
+  slap(player) {
+    if (this.centerPile[0].includes('jack')) {
+      player.hand.push(this.centerPile); //add centerPile to
+      this.shuffle(player.hand);
+      this.centerPile = [];
+    }
 
 /*
   !!!!GAME CAN DETERMINE WHICH PLAYER SLAPS BY READING KEYSTROKE,
