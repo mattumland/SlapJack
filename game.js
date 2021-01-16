@@ -3,7 +3,7 @@ class Game {
     this.player1 = new Player('Player 1'); //should these be instatiated elsewhere?
     this.player2 = new Player('Player 2');
     this.centerPile = [];
-    this.turnTracker = ['player1','player2']; //default to player1 consider adding a method to randomize starting player
+    this.turnTracker = ['Player 1','Player 2']; //default to player1 consider adding a method to randomize starting player
   }
 
   shuffle(deck) {
@@ -26,11 +26,12 @@ class Game {
   }
 
   addToCenterPile() {
-    // HOW DOES IT KNOW WHICH PLAYER THIS IS?
-    // Error handling to compare the keystroke with currentTurn. If q check currentTurn = player 1 else "wait your turn" If p check for player 2 else..
     playCard = //player.drawCard;
     this.centerPile.unshift(playCard); //add new card to the top of centerPile
     this.changeTurn(); //check for remain cards
+    if (player1.hand.length === 0 && player2.hand.length === 0) {
+      this.initialDeal();
+    }
     // return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
     // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
@@ -47,7 +48,8 @@ class Game {
 
 
   slap(slapPlayer, otherPlayer) {
-    //MUST BE A JACK TO GET BACK IN THE GAME 
+    //MUST BE A JACK TO GET BACK IN THE GAME
+    //
 
     if (this.centerPile[0].includes('jack')) { //check for jack
       this.addCenterPileToHand(slapPlayer);
@@ -64,16 +66,22 @@ class Game {
       return `SANDWICH! ${slapPlayer.id} takes the pile`;
     }
 
-    if (slapPlayer.hand.length === 0) { //assume bad slap check for empty to confirm win
-      this.updateWinCount(otherPlayer); //update win count for the other player
-      return this.newGame(otherPlayer); //start new game, return winner message
-    }
-
     var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
     otherPlayer.hand.push(forfeitCard);
     return `BAD SLAP! ${slapPlayer} loses 1 card`;
     // Might need to add a conditional to check if the slapping players hand WAS empty. If is WAS empty, then the slapping player should become the currentPlayer
 }
+
+  comebackSlap(slapPlayer, otherPlayer) {
+    if (this.centerPile[0].includes('jack')) { //check for jack
+      this.addCenterPileToHand(slapPlayer);
+      this.turnTracker = [slapPlayer.id, otherPlayer.id];
+      return `SLAPJACK! ${slapPlayer.id} is back in the game`;
+    }
+
+      this.updateWinCount(otherPlayer); // assume bad slap, update win count for the other player
+      return this.newGame(otherPlayer); //start new game, return winner message
+  }
 
   addCenterPileToHand(player) {
     var newHand = player.hand.concat(this.centerPile); //join both hands in new var
@@ -90,6 +98,7 @@ class Game {
   newGame(winner) {
     // Randomize starting player
     this.centerPile = [];
+    this.turnTracker = ['Player 1','Player 2'];
     this.initialDeal()
     return `${winner} WINS!`;
   }

@@ -14,12 +14,15 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
+
+
   if (e.code === "KeyQ") {
   }
 
-  if (e.code === "KeyF") {
-    // player1 slap
-    game.slap(player1, player2);
+  if (e.code === "KeyF" && game.player1.hand === 0) {
+    game.comebackSlap(player1, player2);
+  } else if (e.code === "KeyF") {
+      game.slap(player1, player2);
   }
 
   if (e.code === "KeyP") {
@@ -27,11 +30,13 @@ window.addEventListener('keydown', function(e) {
     console.log(`P`);
   }
 
-  if (e.code === "KeyJ") {
-    // player2 slap
+  if (e.code === "KeyJ"&& game.player2.hand === 0) {
+    game.comebackSlap(player2, player1);
+  } else if (e.code === "KeyJ") {
     game.slap(player2, player1);
   }
-})
+
+});
 
 function pageLoad() {
   setLocalStorage();
