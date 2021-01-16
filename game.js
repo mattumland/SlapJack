@@ -31,7 +31,7 @@ class Game {
     playCard = //player.drawCard;
     this.centerPile.unshift(playCard); //add new card to the top of centerPile
     this.changeTurn(); //check for remain cards
-    return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
+    // return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
     // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
 
