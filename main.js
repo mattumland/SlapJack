@@ -66,10 +66,10 @@ window.addEventListener('keydown', function(e) {
   }
 
 
-// hide/unhide piles given outcome of key inputs
+// hide/unhide piles given outcome of key inputs CAN THESE BE IN A FUNCTION?
 
   if (game.player1.hand.length > 0) {
-      unhide(p1Card);
+    unhide(p1Card);
   }
 
   if (game.player1.hand.length === 0) {
@@ -87,8 +87,6 @@ window.addEventListener('keydown', function(e) {
   if (game.centerPile.length === 0) {
     hide(centerPileImg);
   }
-
-
 
 });
 
@@ -121,10 +119,11 @@ function updateWinCount(wins) {
 }
 
 function updateCenterDisplay() {
-  // add conditional to prevent fail with empty array
-  var newTopCard = game.centerPile[0];
-  centerPileImg.src= newTopCard;
-  unhide(centerPileImg);
+  if (game.centerPile.length > 0) {
+    var newTopCard = game.centerPile[0];
+    centerPileImg.src= newTopCard;
+    unhide(centerPileImg);
+  }
   // ADD FUNCTION TO UPDATE THE ALT TEXT TO REPRESENT THE CARD FACE
     // Update source image names to be more readable ("Red_4")
     // Read text from data file = altText
