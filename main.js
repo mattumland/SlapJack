@@ -88,21 +88,22 @@ window.addEventListener('keydown', function(e) {
     hide(centerPileImg);
   }
 
+  var storedWins = getStoredWins();
+  updateWinCount(storedWins);
+
 });
 
 function pageLoad() {
   setLocalStorage();
   game.initialDeal();
-  // hide(centerPileImg);
 }
 
 function setLocalStorage() {
   if (localStorage.getItem('storedWinData') === null) {
-    winData = {player1: 0, player2: 0};
-    var stringifyWins = JSON.stringify('winData');
+    var winData = {player1: 0, player2: 0};
+    var stringifyWins = JSON.stringify(winData);
     localStorage.setItem('storedWinData', stringifyWins)
   } else {
-    // console.log(`TEST`);
   var storedWins = getStoredWins();
   updateWinCount(storedWins);
   }
@@ -110,7 +111,8 @@ function setLocalStorage() {
 
 function getStoredWins() {
   var storedWins = localStorage.getItem('storedWinData');
-  return JSON.parse(storedWins);
+  var parsedWins = JSON.parse(storedWins)
+  return parsedWins;
 }
 
 function updateWinCount(wins) {
