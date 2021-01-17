@@ -15,7 +15,8 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
-  hide(popUp);
+  hide(popUp); //remove any previous popUp
+
 //1 DRAW
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
@@ -27,25 +28,18 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
-  if (game.player1.hand.length === 0) {
-    hide(p1Card);
-  }
 // 1 SLAP
-  if (e.code === "KeyF" && game.player1.hand === 0) {
+  if (e.code === "KeyF" && (game.player1.hand === 0 || game.player2.hand === 0)) {
     var newPopUp = game.comebackSlap(game.player1, game.player2);
     popUp.innerText = newPopUp;
     unhide(popUp);
-  } else if (e.code === "KeyF") {
+  } else if (e.code === "KeyF") { //NORMAL SLAP
       var newPopUp = game.slap(game.player1, game.player2);
       popUp.innerText = newPopUp;
       unhide(popUp);
   }
 
 
-
-  if (game.player1.hand.length > 0) {
-    unhide(p1Card);
-  }
 // 2 DRAW
   if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
     game.addToCenterPile(game.player2, game.player1);
@@ -57,11 +51,8 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
-  if (game.player2.hand.length === 0) {
-    hide(p2Card);
-  }
 //2 SLAP
-  if (e.code === "KeyJ" && game.player2.hand === 0) {
+  if (e.code === "KeyJ" && (game.player1.hand === 0 || game.player2.hand === 0)) {
     var newPopUp = game.comebackSlap(game.player2, game.player1);
     popUp.innerText = newPopUp;
     unhide(popUp);
@@ -72,13 +63,30 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
+
+// hide/unhide piles given outcome of key inputs
+
+  if (game.player1.hand.length > 0) {
+      unhide(p1Card);
+  }
+
+  if (game.player1.hand.length === 0) {
+    hide(p1Card);
+  }
+
   if (game.player2.hand.length > 0) {
     unhide(p2Card);
+  }
+
+  if (game.player2.hand.length === 0) {
+    hide(p2Card);
   }
 
   if (game.centerPile.length === 0) {
     hide(centerPileImg);
   }
+
+
 
 });
 

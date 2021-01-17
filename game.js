@@ -68,15 +68,34 @@ class Game {
 }
 
   comebackSlap(slapPlayer, otherPlayer) {
-    if (this.centerPile[0].includes('jack')) { //check for jack
+    var isComeback = false;
+    if (slapPlayer.hand.length === 0) {
+      isComeback = true;
+    }
+
+    if (this.centerPile[0].includes('jack') && isComeback === true) {
       this.addCenterPileToHand(slapPlayer);
       this.turnTracker = [slapPlayer.id, otherPlayer.id];
       return `SLAPJACK! Player ${slapPlayer.id} is back in the game`;
     }
 
+    if (this.centerPile[0].includes('jack') && isComeback === false) {
+      this.updateWinCount(slapPlayer); // assume bad slap, update win count for the other player
+      return this.newGame(slapPlayer); //start new game, return winner message
+    }
+
+    if (!this.centerPile[0].includes('jack') && isComeback === false) {
+      var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
+      otherPlayer.hand.push(forfeitCard);
+      return `BAD SLAP! Player ${slapPlayer.id} loses 1 card`;
+    }
+
+    if (!this.centerPile[0].includes('jack') && isComeback === true) {
       this.updateWinCount(otherPlayer); // assume bad slap, update win count for the other player
       return this.newGame(otherPlayer); //start new game, return winner message
-  }
+    }
+}
+
 
   addCenterPileToHand(player) {
     var newHand = player.hand.concat(this.centerPile); //join both hands in new var
