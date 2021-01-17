@@ -64,11 +64,10 @@ class Game {
 
     var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
     otherPlayer.hand.push(forfeitCard);
-    return `BAD SLAP! Player ${slapPlayer.id} loses 1 card`;
+    return `BAD SLAP! Player ${slapPlayer.id} loses a card`;
 }
 
   comebackSlap(slapPlayer, otherPlayer) {
-    console.log("COMEBACK SLAP");
     var isComeback = false;
     if (slapPlayer.hand.length === 0) {
       isComeback = true;
@@ -88,7 +87,7 @@ class Game {
     if (!this.centerPile[0].includes('jack') && isComeback === false) {
       var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
       otherPlayer.hand.push(forfeitCard);
-      return `BAD SLAP! Player ${slapPlayer.id} loses 1 card`;
+      return `BAD SLAP! Player ${slapPlayer.id} loses a card`;
     }
 
     if (!this.centerPile[0].includes('jack') && isComeback === true) {
@@ -110,11 +109,11 @@ class Game {
     player.saveWinsToStorage();
   }
 
-  newGame(winner) {
+  newGame(winningPlayer) {
     this.centerPile = [];
-    this.turnTracker = ['Player 1','Player 2'];
+    this.turnTracker = ['1','2'];
     this.initialDeal()
-    return `${winner} WINS!`;
+    return `PLAYER ${winningPlayer.id} WINS!`;
   }
 
   dataCleaner(assetLink) {
