@@ -6,10 +6,10 @@ class Player {
   }
 
   drawCard() {
-    if (this.hand.length > 0) {
+    // if (this.hand.length > 0) {
       return this.hand.shift();
-    }
-    return;
+    // }
+    // return `empty`;
 
 /*
     check length of this.hand to confirm the player has cards

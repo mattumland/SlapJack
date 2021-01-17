@@ -26,8 +26,10 @@ class Game {
   }
 
   addToCenterPile(currentPlayer, otherPlayer) {
-    var playCard = currentPlayer.drawCard();
-    this.centerPile.unshift(playCard); //add new card to the top of centerPile
+    if (currentPlayer.hand.length > 0) {
+      var playCard = currentPlayer.drawCard();
+      this.centerPile.unshift(playCard); //add new card to the top of centerPile
+    }
     this.changeTurn(); //already has error handling to confirm next player has a hand
     if (currentPlayer.hand.length === 0 && otherPlayer.hand.length === 0) {
       this.addCenterPileToHand(currentPlayer);
@@ -41,7 +43,6 @@ class Game {
     if (this[nextPlayer].hand.length > 0) {
       var turnChanger = this.turnTracker.shift(); //change order of the array
       this.turnTracker.push(turnChanger);
-      console.log(this.turnTracker);
     }
   }
 
