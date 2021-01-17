@@ -16,7 +16,6 @@ var game = new Game();
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
   hide(popUp);
-
 //1 DRAW
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
@@ -62,7 +61,7 @@ window.addEventListener('keydown', function(e) {
     hide(p2Card);
   }
 //2 SLAP
-  if (e.code === "KeyJ"&& game.player2.hand === 0) {
+  if (e.code === "KeyJ" && game.player2.hand === 0) {
     var newPopUp = game.comebackSlap(game.player2, game.player1);
     popUp.innerText = newPopUp;
     unhide(popUp);
