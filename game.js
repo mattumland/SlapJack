@@ -107,7 +107,7 @@ class Game {
 
   updateWinCount(player) {
     player.wins++;
-    player.wins.saveWinsToStorage();
+    player.saveWinsToStorage();
   }
 
   newGame(winner) {
