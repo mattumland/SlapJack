@@ -15,49 +15,69 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
+  hide(popUp);
+//1 DRAW
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
     updateCenterDisplay();
     updateCurrentTurnDisplay();
+    unhide(centerPileImg);
   } else if (e.code === "KeyQ") {
     popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
+    unhide(popUp);
   }
 
   if (game.player1.hand.length === 0) {
     hide(p1Card);
   }
-
+// 1 SLAP
   if (e.code === "KeyF" && game.player1.hand === 0) {
-    game.comebackSlap(game.player1, game.player2);
+    var newPopUp = game.comebackSlap(game.player1, game.player2);
+    popUp.innerText = newPopUp;
+    unhide(popUp);
   } else if (e.code === "KeyF") {
-      game.slap(game.player1, game.player2);
+      var newPopUp = game.slap(game.player1, game.player2);
+      popUp.innerText = newPopUp;
+      unhide(popUp);
   }
+
+
 
   if (game.player1.hand.length > 0) {
     unhide(p1Card);
   }
-
+// 2 DRAW
   if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
     game.addToCenterPile(game.player2, game.player1);
     updateCenterDisplay();
     updateCurrentTurnDisplay();
+    unhide(centerPileImg);
   } else if (e.code === "KeyP") {
     popUp.innerText = `WAIT YOUR TURN PLAYER 2!`;
+    unhide(popUp);
   }
 
   if (game.player2.hand.length === 0) {
     hide(p2Card);
   }
-
-  if (e.code === "KeyJ"&& game.player2.hand === 0) {
-    game.comebackSlap(game.player2, game.player1);
+//2 SLAP
+  if (e.code === "KeyJ" && game.player2.hand === 0) {
+    var newPopUp = game.comebackSlap(game.player2, game.player1);
+    popUp.innerText = newPopUp;
+    unhide(popUp);
     //check hand length and toggle card back if no longer empty
   } else if (e.code === "KeyJ") {
-    game.slap(game.player2, game.player1);
+    var newPopUp = game.slap(game.player2, game.player1);
+    popUp.innerText = newPopUp;
+    unhide(popUp);
   }
 
   if (game.player2.hand.length > 0) {
     unhide(p2Card);
+  }
+
+  if (game.centerPile.length === 0) {
+    hide(centerPileImg);
   }
 
 });
@@ -65,6 +85,7 @@ window.addEventListener('keydown', function(e) {
 function pageLoad() {
   setLocalStorage();
   game.initialDeal();
+  // hide(centerPileImg);
 }
 
 function setLocalStorage() {
@@ -93,6 +114,7 @@ function updateCenterDisplay() {
   // add conditional to prevent fail with empty array
   var newTopCard = game.centerPile[0];
   centerPileImg.src= newTopCard;
+  unhide(centerPileImg);
   // ADD FUNCTION TO UPDATE THE ALT TEXT TO REPRESENT THE CARD FACE
     // Update source image names to be more readable ("Red_4")
     // Read text from data file = altText

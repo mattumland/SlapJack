@@ -52,19 +52,19 @@ class Game {
       return `SLAPJACK! Player ${slapPlayer.id} takes the pile`;
     }
 
-    if (this.centerPile[0] === this.centerPile[1]) { //check for double
+    if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[1])) { //check for double
       this.addCenterPileToHand(slapPlayer);
       return `DOUBLES! Player ${slapPlayer.id} takes the pile`;
     }
 
-    if (this.centerPile[0] === this.centerPile[2]) { //check for sandwich
+    if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[2])) { //check for sandwich
       this.addCenterPileToHand(slapPlayer);
       return `SANDWICH! Player ${slapPlayer.id} takes the pile`;
     }
 
     var forfeitCard = slapPlayer.hand.shift();  //assume bad slap without empty hand pass card to other player
     otherPlayer.hand.push(forfeitCard);
-    return `BAD SLAP! Player ${slapPlayer} loses 1 card`;
+    return `BAD SLAP! Player ${slapPlayer.id} loses 1 card`;
 }
 
   comebackSlap(slapPlayer, otherPlayer) {
@@ -95,6 +95,12 @@ class Game {
     this.turnTracker = ['Player 1','Player 2'];
     this.initialDeal()
     return `${winner} WINS!`;
+  }
+
+  dataCleaner(assetLink) {
+    var sliceSpot = assetLink.indexOf('-');
+    var cleanLink = assetLink.slice(sliceSpot+1);
+    return cleanLink;
   }
 
 }
