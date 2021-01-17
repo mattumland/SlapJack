@@ -4,6 +4,8 @@ var p1WinCount = document.querySelector("#p1WinCount");
 var p2WinCount = document.querySelector("#p2WinCount");
 var p1Zone = document.querySelector("#p1Section");
 var p2Zone = document.querySelector("#p2Section");
+var p1Card = document.querySelector("#p1Card");
+var p2Card = document.querySelector("#p2Card");
 var centerPileImg = document.querySelector("#centerPile"); //this is an img
 var howToButton = document.querySelector("button");
 
@@ -21,10 +23,18 @@ window.addEventListener('keydown', function(e) {
     popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
   }
 
+  if (game.player1.hand.length === 0) {
+    hide(p1Card);
+  }
+
   if (e.code === "KeyF" && game.player1.hand === 0) {
     game.comebackSlap(game.player1, game.player2);
   } else if (e.code === "KeyF") {
       game.slap(game.player1, game.player2);
+  }
+
+  if (game.player1.hand.length > 0) {
+    unhide(p1Card);
   }
 
   if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
@@ -35,10 +45,19 @@ window.addEventListener('keydown', function(e) {
     popUp.innerText = `WAIT YOUR TURN PLAYER 2!`;
   }
 
+  if (game.player2.hand.length === 0) {
+    hide(p2Card);
+  }
+
   if (e.code === "KeyJ"&& game.player2.hand === 0) {
     game.comebackSlap(game.player2, game.player1);
+    //check hand length and toggle card back if no longer empty
   } else if (e.code === "KeyJ") {
     game.slap(game.player2, game.player1);
+  }
+
+  if (game.player2.hand.length > 0) {
+    unhide(p2Card);
   }
 
 });
@@ -84,4 +103,12 @@ function updateCenterDisplay() {
 
 function updateCurrentTurnDisplay() {
 
+}
+
+function hide(element) {
+  element.classList.add('hidden');
+}
+
+function unhide(element) {
+  element.classList.remove('hidden');
 }
