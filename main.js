@@ -15,15 +15,16 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
-  if (e.code === "KeyQ") {
-      popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
-  } else if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
+  if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
     updateCenterDisplay();
     updateCurrentTurnDisplay();
+  } else if (e.code === "KeyQ") {
+    popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
   }
+
   if (game.player1.hand.length === 0) {
-    p1Card.classList.add('hidden');
+    hide(p1Card);
   }
 
   if (e.code === "KeyF" && game.player1.hand === 0) {
@@ -32,15 +33,20 @@ window.addEventListener('keydown', function(e) {
       game.slap(game.player1, game.player2);
   }
 
+  if (game.player1.hand.length > 0) {
+    unhide(p1Card);
+  }
+
   if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
     game.addToCenterPile(game.player2, game.player1);
-    if (game.player2.hand.length === 0) {
-      p2Card.classList.add('hidden');
-    }
     updateCenterDisplay();
     updateCurrentTurnDisplay();
   } else if (e.code === "KeyP") {
     popUp.innerText = `WAIT YOUR TURN PLAYER 2!`;
+  }
+
+  if (game.player2.hand.length === 0) {
+    hide(p2Card);
   }
 
   if (e.code === "KeyJ"&& game.player2.hand === 0) {
@@ -48,6 +54,10 @@ window.addEventListener('keydown', function(e) {
     //check hand length and toggle card back if no longer empty
   } else if (e.code === "KeyJ") {
     game.slap(game.player2, game.player1);
+  }
+
+  if (game.player2.hand.length > 0) {
+    unhide(p2Card);
   }
 
 });
@@ -93,4 +103,12 @@ function updateCenterDisplay() {
 
 function updateCurrentTurnDisplay() {
 
+}
+
+function hide(element) {
+  element.classList.add('hidden');
+}
+
+function unhide(element) {
+  element.classList.remove('hidden');
 }
