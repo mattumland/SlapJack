@@ -16,6 +16,8 @@ var game = new Game();
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
   hide(popUp);
+  var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
+
 //1 DRAW
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
@@ -27,25 +29,19 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
-  if (game.player1.hand.length === 0) {
-    hide(p1Card);
-  }
 // 1 SLAP
-  if (e.code === "KeyF" && game.player1.hand === 0) {
+  // console.log(e.code === "KeyF" && (game.player1.hand === 0 || game.player2.hand === 0));
+  if (e.code === "KeyF" && aHandIsEmpty) {
     var newPopUp = game.comebackSlap(game.player1, game.player2);
     popUp.innerText = newPopUp;
     unhide(popUp);
-  } else if (e.code === "KeyF") {
+  } else if (e.code === "KeyF") { //NORMAL SLAP
       var newPopUp = game.slap(game.player1, game.player2);
       popUp.innerText = newPopUp;
       unhide(popUp);
   }
 
 
-
-  if (game.player1.hand.length > 0) {
-    unhide(p1Card);
-  }
 // 2 DRAW
   if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
     game.addToCenterPile(game.player2, game.player1);
@@ -57,11 +53,8 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
-  if (game.player2.hand.length === 0) {
-    hide(p2Card);
-  }
 //2 SLAP
-  if (e.code === "KeyJ" && game.player2.hand === 0) {
+  if (e.code === "KeyJ" && aHandIsEmpty) {
     var newPopUp = game.comebackSlap(game.player2, game.player1);
     popUp.innerText = newPopUp;
     unhide(popUp);
@@ -72,8 +65,23 @@ window.addEventListener('keydown', function(e) {
     unhide(popUp);
   }
 
+
+// hide/unhide piles given outcome of key inputs CAN THESE BE IN A FUNCTION?
+
+  if (game.player1.hand.length > 0) {
+    unhide(p1Card);
+  }
+
+  if (game.player1.hand.length === 0) {
+    hide(p1Card);
+  }
+
   if (game.player2.hand.length > 0) {
     unhide(p2Card);
+  }
+
+  if (game.player2.hand.length === 0) {
+    hide(p2Card);
   }
 
   if (game.centerPile.length === 0) {
@@ -94,7 +102,7 @@ function setLocalStorage() {
     var stringifyWins = JSON.stringify('winData');
     localStorage.setItem('storedWinData', stringifyWins)
   } else {
-    console.log(`TEST`);
+    // console.log(`TEST`);
   var storedWins = getStoredWins();
   updateWinCount(storedWins);
   }
@@ -111,10 +119,11 @@ function updateWinCount(wins) {
 }
 
 function updateCenterDisplay() {
-  // add conditional to prevent fail with empty array
-  var newTopCard = game.centerPile[0];
-  centerPileImg.src= newTopCard;
-  unhide(centerPileImg);
+  if (game.centerPile.length > 0) {
+    var newTopCard = game.centerPile[0];
+    centerPileImg.src= newTopCard;
+    unhide(centerPileImg);
+  }
   // ADD FUNCTION TO UPDATE THE ALT TEXT TO REPRESENT THE CARD FACE
     // Update source image names to be more readable ("Red_4")
     // Read text from data file = altText
