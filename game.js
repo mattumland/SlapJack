@@ -68,6 +68,7 @@ class Game {
 }
 
   comebackSlap(slapPlayer, otherPlayer) {
+    console.log("COMEBACK SLAP");
     var isComeback = false;
     if (slapPlayer.hand.length === 0) {
       isComeback = true;

@@ -15,7 +15,8 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
-  hide(popUp); //remove any previous popUp
+  hide(popUp);
+  var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
 
 //1 DRAW
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
@@ -29,7 +30,8 @@ window.addEventListener('keydown', function(e) {
   }
 
 // 1 SLAP
-  if (e.code === "KeyF" && (game.player1.hand === 0 || game.player2.hand === 0)) {
+  // console.log(e.code === "KeyF" && (game.player1.hand === 0 || game.player2.hand === 0));
+  if (e.code === "KeyF" && aHandIsEmpty) {
     var newPopUp = game.comebackSlap(game.player1, game.player2);
     popUp.innerText = newPopUp;
     unhide(popUp);
@@ -52,7 +54,7 @@ window.addEventListener('keydown', function(e) {
   }
 
 //2 SLAP
-  if (e.code === "KeyJ" && (game.player1.hand === 0 || game.player2.hand === 0)) {
+  if (e.code === "KeyJ" && aHandIsEmpty) {
     var newPopUp = game.comebackSlap(game.player2, game.player1);
     popUp.innerText = newPopUp;
     unhide(popUp);
@@ -102,7 +104,7 @@ function setLocalStorage() {
     var stringifyWins = JSON.stringify('winData');
     localStorage.setItem('storedWinData', stringifyWins)
   } else {
-    console.log(`TEST`);
+    // console.log(`TEST`);
   var storedWins = getStoredWins();
   updateWinCount(storedWins);
   }
