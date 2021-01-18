@@ -27,25 +27,7 @@ window.addEventListener('keydown', function(e) {
     playerSlap(keyPress, aHandIsEmpty);
   }
 
-  if (game.player1.hand.length > 0) {
-    unhide(p1Card);
-  } else if (game.player1.hand.length === 0) {
-    hide(p1Card);
-  }
-
-  if (game.player2.hand.length > 0) {
-    unhide(p2Card);
-  } else if (game.player2.hand.length === 0) {
-    hide(p2Card);
-  }
-
-  if (game.centerPile.length === 0) {
-    hide(centerPileImg);
-  }
-
-  var storedWins = getStoredWins();
-  updateWinCount(storedWins);
-
+  updateDomState();
 });
 
  function playerDraw(keyPress, currentPlayer, nextPlayer) {
@@ -83,7 +65,26 @@ function playerSlap(keyPress, aHandIsEmpty) {
   }
 }
 
-// updateGameState
+function updateDomState() {
+  if (game.player1.hand.length > 0) {
+    unhide(p1Card);
+  } else if (game.player1.hand.length === 0) {
+    hide(p1Card);
+  }
+
+  if (game.player2.hand.length > 0) {
+    unhide(p2Card);
+  } else if (game.player2.hand.length === 0) {
+    hide(p2Card);
+  }
+
+  if (game.centerPile.length === 0) {
+    hide(centerPileImg);
+  }
+
+  var storedWins = getStoredWins();
+  updateWinCount(storedWins);
+}
 
 function pageLoad() {
   setLocalStorage();
