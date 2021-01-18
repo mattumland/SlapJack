@@ -18,7 +18,21 @@ window.addEventListener('keydown', function(e) {
   hide(popUp);
   var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
 
-//1 DRAW
+//var keypress = e.code ('KeyQ')
+//var currentPlayer = game.turnTracker[0]
+
+// is keypress a draw
+// DRAW (keypress and player)
+// else if is it a slap
+// SLAP (keypress and player)
+// else do nothing
+
+//1 DRAW function
+//SLAP function
+
+// function playerDraw (keypress, currentPLayer)
+// if Q and player1
+
   if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
     game.addToCenterPile(game.player1, game.player2);
     updateCenterDisplay();
@@ -30,7 +44,6 @@ window.addEventListener('keydown', function(e) {
   }
 
 // 1 SLAP
-  // console.log(e.code === "KeyF" && (game.player1.hand === 0 || game.player2.hand === 0));
   if (e.code === "KeyF" && aHandIsEmpty) {
     var newPopUp = game.comebackSlap(game.player1, game.player2);
     popUp.innerText = newPopUp;
@@ -58,7 +71,6 @@ window.addEventListener('keydown', function(e) {
     var newPopUp = game.comebackSlap(game.player2, game.player1);
     popUp.innerText = newPopUp;
     unhide(popUp);
-    //check hand length and toggle card back if no longer empty
   } else if (e.code === "KeyJ") {
     var newPopUp = game.slap(game.player2, game.player1);
     popUp.innerText = newPopUp;
@@ -70,17 +82,13 @@ window.addEventListener('keydown', function(e) {
 
   if (game.player1.hand.length > 0) {
     unhide(p1Card);
-  }
-
-  if (game.player1.hand.length === 0) {
+  } else if (game.player1.hand.length === 0) {
     hide(p1Card);
   }
 
   if (game.player2.hand.length > 0) {
     unhide(p2Card);
-  }
-
-  if (game.player2.hand.length === 0) {
+  } else if (game.player2.hand.length === 0) {
     hide(p2Card);
   }
 
@@ -92,6 +100,15 @@ window.addEventListener('keydown', function(e) {
   updateWinCount(storedWins);
 
 });
+
+
+ // function slapOrDraw(keypress)
+
+ // function drawCard
+
+// function slapCard
+
+// updateGameState
 
 function pageLoad() {
   setLocalStorage();
