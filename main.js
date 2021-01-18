@@ -17,68 +17,16 @@ window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
   hide(popUp);
   var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
+  var keyPress = e.code;
+  var currentPlayer = game.turnTracker[0];
+  var nextPlayer = game.turnTracker[1];
 
-//var keypress = e.code ('KeyQ')
-//var currentPlayer = game.turnTracker[0]
-
-// is keypress a draw
-// DRAW (keypress and player)
-// else if is it a slap
-// SLAP (keypress and player)
-// else do nothing
-
-//1 DRAW function
-//SLAP function
-
-// function playerDraw (keypress, currentPLayer)
-// if Q and player1
-
-  if (e.code === "KeyQ" && game.turnTracker[0] === game.player1.id) {
-    game.addToCenterPile(game.player1, game.player2);
-    updateCenterDisplay();
-    updateCurrentTurnDisplay();
-    unhide(centerPileImg);
-  } else if (e.code === "KeyQ") {
-    popUp.innerText = `WAIT YOUR TURN PLAYER 1!`;
-    unhide(popUp);
+  // DRAW
+  if (keyPress === "KeyQ" || keyPress === "KeyP") {
+    playerDraw(keyPress, currentPlayer, nextPlayer);
+  } else if ((keyPress === "KeyF" || keyPress === "KeyJ") && (game.centerPile.length > 0)) {
+    playerSlap(keyPress, aHandIsEmpty);
   }
-
-// 1 SLAP
-  if (e.code === "KeyF" && aHandIsEmpty) {
-    var newPopUp = game.comebackSlap(game.player1, game.player2);
-    popUp.innerText = newPopUp;
-    unhide(popUp);
-  } else if (e.code === "KeyF") { //NORMAL SLAP
-      var newPopUp = game.slap(game.player1, game.player2);
-      popUp.innerText = newPopUp;
-      unhide(popUp);
-  }
-
-
-// 2 DRAW
-  if (e.code === "KeyP" && game.turnTracker[0] === game.player2.id) {
-    game.addToCenterPile(game.player2, game.player1);
-    updateCenterDisplay();
-    updateCurrentTurnDisplay();
-    unhide(centerPileImg);
-  } else if (e.code === "KeyP") {
-    popUp.innerText = `WAIT YOUR TURN PLAYER 2!`;
-    unhide(popUp);
-  }
-
-//2 SLAP
-  if (e.code === "KeyJ" && aHandIsEmpty) {
-    var newPopUp = game.comebackSlap(game.player2, game.player1);
-    popUp.innerText = newPopUp;
-    unhide(popUp);
-  } else if (e.code === "KeyJ") {
-    var newPopUp = game.slap(game.player2, game.player1);
-    popUp.innerText = newPopUp;
-    unhide(popUp);
-  }
-
-
-// hide/unhide piles given outcome of key inputs CAN THESE BE IN A FUNCTION?
 
   if (game.player1.hand.length > 0) {
     unhide(p1Card);
@@ -101,12 +49,52 @@ window.addEventListener('keydown', function(e) {
 
 });
 
+// 1 SLAP
+//   if (e.code === "KeyF" && aHandIsEmpty) {
+//     var newPopUp = game.comebackSlap(game.player1, game.player2);
+//     popUp.innerText = newPopUp;
+//     unhide(popUp);
+//   } else if (e.code === "KeyF") { //NORMAL SLAP
+//       var newPopUp = game.slap(game.player1, game.player2);
+//       popUp.innerText = newPopUp;
+//       unhide(popUp);
+//   }
 
- // function slapOrDraw(keypress)
 
- // function drawCard
+ function playerDraw(keyPress, currentPlayer, nextPlayer) {
+     if ((currentPlayer === '1' && keyPress === 'KeyQ') || (currentPlayer === '2' && keyPress === 'KeyP')) {
+       game.addToCenterPile(currentPlayer, nextPlayer);
+       updateCenterDisplay();
+       updateCurrentTurnDisplay();
+       unhide(centerPileImg);
+     } else {
+       popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
+       unhide(popUp);
+     }
+   }
 
-// function slapCard
+function playerSlap(keyPress, aHandIsEmpty) {
+  var slapPlayer;
+  var otherPlayer;
+
+  if (keyPress === "KeyF") {
+    slapPlayer = game.player1;
+    otherPlayer = game.player2;
+  } else {
+    slapPlayer = game.player2;
+    otherPlayer = game.player1;
+  }
+
+  if (aHandIsEmpty) {
+    var newPopUp = game.comebackSlap(slapPlayer, otherPlayer);
+    popUp.innerText = newPopUp;
+    unhide(popUp);
+  } else {
+    var newPopUp = game.slap(slapPlayer, otherPlayer);
+    popUp.innerText = newPopUp;
+    unhide(popUp);
+  }
+}
 
 // updateGameState
 

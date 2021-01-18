@@ -26,16 +26,16 @@ class Game {
   }
 
   addToCenterPile(currentPlayer, otherPlayer) {
-    if (currentPlayer.hand.length > 0) {
-      var playCard = currentPlayer.drawCard();
+    currentPlayer = `player${currentPlayer}`;
+    otherPlayer = `player${otherPlayer}`;
+    if (this[currentPlayer].hand.length > 0) {
+      var playCard = this[currentPlayer].drawCard();
       this.centerPile.unshift(playCard); //add new card to the top of centerPile
     }
     this.changeTurn(); //already has error handling to confirm next player has a hand
-    if (currentPlayer.hand.length === 0 && otherPlayer.hand.length === 0) {
+    if (this[currentPlayer].hand.length === 0 && this[otherPlayer].hand.length === 0) {
       this.addCenterPileToHand(currentPlayer);
     }
-    // return this.centerPile[0]; //send Data from centerPile to main so if can update the DOM /probably doesn't need to return anyh
-    // updateCenter(); possible function for sending data to main then to dom, doens't seem necessary
   }
 
   changeTurn() {
@@ -47,17 +47,22 @@ class Game {
   }
 
   slap(slapPlayer, otherPlayer) {
+    console.log(otherPlayer);
     if (this.centerPile[0].includes('jack')) { //check for jack
       this.addCenterPileToHand(slapPlayer);
       return `SLAPJACK! Player ${slapPlayer.id} takes the pile`;
     }
 
-    if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[1])) { //check for double
+    if (this.centerPile.length === 1){
+
+    } else if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[1])) { //check for double
       this.addCenterPileToHand(slapPlayer);
       return `DOUBLES! Player ${slapPlayer.id} takes the pile`;
     }
 
-    if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[2])) { //check for sandwich
+    if (this.centerPile.length === 1 || this.centerPile.length === 2){
+
+    } else if (this.dataCleaner(this.centerPile[0]) === this.dataCleaner(this.centerPile[2])) { //check for sandwich
       this.addCenterPileToHand(slapPlayer);
       return `SANDWICH! Player ${slapPlayer.id} takes the pile`;
     }
@@ -100,7 +105,7 @@ class Game {
   addCenterPileToHand(player) {
     var newHand = player.hand.concat(this.centerPile); //join both hands in new var
     player.hand = newHand; //reassign hand using new var
-    this.shuffle(player.hand);
+    player.hand = this.shuffle(player.hand);
     this.centerPile = []; //ensure centerPile is empty
   }
 
@@ -118,7 +123,8 @@ class Game {
 
   dataCleaner(assetLink) {
     var sliceSpot = assetLink.indexOf('-');
-    var cleanLink = assetLink.slice(sliceSpot+1);
+    var cleanLink = assetLink.slice(sliceSpot + 1);
+    console.log(assetLink);
     return cleanLink;
   }
 
