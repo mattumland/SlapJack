@@ -21,7 +21,6 @@ window.addEventListener('keydown', function(e) {
   var currentPlayer = game.turnTracker[0];
   var nextPlayer = game.turnTracker[1];
 
-  // DRAW
   if (keyPress === "KeyQ" || keyPress === "KeyP") {
     playerDraw(keyPress, currentPlayer, nextPlayer);
   } else if ((keyPress === "KeyF" || keyPress === "KeyJ") && (game.centerPile.length > 0)) {
@@ -48,18 +47,6 @@ window.addEventListener('keydown', function(e) {
   updateWinCount(storedWins);
 
 });
-
-// 1 SLAP
-//   if (e.code === "KeyF" && aHandIsEmpty) {
-//     var newPopUp = game.comebackSlap(game.player1, game.player2);
-//     popUp.innerText = newPopUp;
-//     unhide(popUp);
-//   } else if (e.code === "KeyF") { //NORMAL SLAP
-//       var newPopUp = game.slap(game.player1, game.player2);
-//       popUp.innerText = newPopUp;
-//       unhide(popUp);
-//   }
-
 
  function playerDraw(keyPress, currentPlayer, nextPlayer) {
      if ((currentPlayer === '1' && keyPress === 'KeyQ') || (currentPlayer === '2' && keyPress === 'KeyP')) {
