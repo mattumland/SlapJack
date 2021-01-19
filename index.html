@@ -10,28 +10,25 @@
   <h1 class="hidden" id="popUp">SLAPJACK! Player 1 takes the pile</h1>
   <main>
     <div class="card-container">
-      <section id="p1Section" class="p1-area">
+      <section id="p1Section" class="player-area active-player">
         <h2>Player 1</h2>
         <img id="p1Card" src="./assets/back.png" alt="The back of a playing card">
         <h3 id="p1WinCount">0 WINS</h3>
       </section>
       <section class="center-pile">
-        <img class="hidden" id="centerPile" src="./assets/red-queen.png" alt="The front of a playing card">
-        <!-- ADD ALT TEXT THAT REFLECTS THE FACE OF THE CARD -->
-        <!-- pile under the card -->
+        <img class="hidden" id="centerPile" src="./assets/empty-card-01.png" alt="A playing card">
       </section>
-      <section id="p2Section" class="p2-area">
+      <section id="p2Section" class="player-area">
         <h2>Player 2</h2>
         <img id="p2Card" src="./assets/back.png" alt="The back of a playing card">
         <h3 id="p2WinCount">0 WINS</h3>
       </section>
     </div>
-    <button>How to play</button>
+    <button>CLEAR SC0RES</button>
   </main>
   <script src="data.js" type="text/javascript"></script>
   <script src="Player.js" type="text/javascript"></script>
   <script src="Game.js" type="text/javascript"></script>
   <script src="main.js" type="text/javascript"></script>
 </body>
-
 </html>
