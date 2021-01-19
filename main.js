@@ -6,11 +6,12 @@ var p2Zone = document.querySelector("#p2Section");
 var p1Card = document.querySelector("#p1Card");
 var p2Card = document.querySelector("#p2Card");
 var centerPileImg = document.querySelector("#centerPile"); //this is an img
-var howToButton = document.querySelector("button");
+var clearScoresButton = document.querySelector("button");
 
 var game = new Game();
 
 window.addEventListener('load', pageLoad);
+window.addEventListener('click', clearScore);
 window.addEventListener('keydown', function(e) {
   var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
   var keyPress = e.code;
@@ -36,7 +37,7 @@ function playerDraw(keyPress, currentPlayer, nextPlayer) {
   } else {
     popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
     unhide(popUp);
- }
+  }
 }
 
 function pageLoad() {
@@ -50,8 +51,7 @@ function setLocalStorage() {
     var stringifyWins = JSON.stringify(winData);
     localStorage.setItem('storedWinData', stringifyWins)
   } else {
-    var storedWins = getStoredWins();
-    updateWinCount(storedWins);
+    updateWinDisplay()
   }
 }
 
@@ -100,6 +100,10 @@ function updateCardDisplay() {
   if (game.centerPile.length === 0) {
     hide(centerPileImg);
   }
+
+  if (game.centerPile.length > 2){
+    centerPileImg.classList.add('card-stack')
+  }
 }
 
 function updateWinDisplay() {
@@ -133,12 +137,6 @@ function addCardToCenterPile() {
 }
 
 function updateCurrentTurnDisplay() {
-    // var currentPlayerZone = `p${game.turnTracker[0]}Zone`;
-    // var nextPlayerZone = `p${game.turnTracker[1]}Zone`
-    // console.log([currentPlayerZone]);
-    // [currentPlayerZone].classList.add("active-player");
-    // [nextPlayerZone].classList.add("active-player");
-
   if (game.turnTracker[0] === '1') {
     p1Zone.classList.add("active-player");
     p2Zone.classList.remove("active-player");
@@ -146,6 +144,12 @@ function updateCurrentTurnDisplay() {
     p2Zone.classList.add("active-player");
     p1Zone.classList.remove("active-player");
   }
+}
+
+function clearScore() {
+  localStorage.clear();
+  setLocalStorage();
+  updateWinDisplay();
 }
 
 function hide(element) {

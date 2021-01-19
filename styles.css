@@ -44,16 +44,7 @@ h3 {
   margin: 120px 0;
 }
 
-.p1-area {
-  width: 260px;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content:space-around;
-}
-
-.p2-area {
+.player-area {
   width: 260px;
   height: 350px;
   display: flex;
@@ -63,25 +54,24 @@ h3 {
 }
 
 .active-player {
-  border: solid 2px ;
+  border: solid 2px;
   border-radius: 5px;
   animation-name: pulse;
   animation-duration: 3s;
-  animation-fill-mode: both;
   animation-iteration-count: infinite;
 }
 
 @keyframes pulse {
   0% {
-    border-radius: 10px;
+    border-radius: 20px;
     border-color: #B17689;
   }
   50% {
-    border-radius: 2px;
+    border-radius: 5px;
     border-color: #7E7A98;
   }
   100% {
-    border-radius: 10px;
+    border-radius: 20px;
     border-color: #B17689;
   }
 }
@@ -94,6 +84,13 @@ img {
   object-fit: cover;
 }
 
+.card-stack {
+  box-shadow:
+    0 1px 1px rgba(0,0,0,0.15),
+    0 8px 0 -2px #eee,
+    0 20px 1px -9px rgba(0,0,0,0.15);
+}
+/* BUTTON */
 button {
   width: 150px;
   height: 50px;
@@ -104,6 +101,12 @@ button {
   text-align: center;
   margin-left: 30px;
   margin-top: 30px;
+}
+
+button:hover {
+  background-color: #FFF;
+  color: black;
+  cursor: crosshair;
 }
 
 /* UTILITY */
