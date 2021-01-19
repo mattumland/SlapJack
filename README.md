@@ -19,7 +19,7 @@ _Players alternate turns playing cards face-up into the central pile. The pulsin
 * If a player slaps when a Double or a pair (two cards of the same number - such as two Aces, or two Fives, or two Queens) is on top of the central pile, the entire central pile is added to the player’s hand, and their hand is shuffled automatically.
 * If a player slaps when a Sandwich (two cards of the same number - such as two Aces, or two Fives, or two Queens, separated by a different card in the middle) is on top of the central pile, the entire central pile is added to the player’s hand, and their hand is shuffled automatically.
 * If a player slaps when neither a Jack, Double, or Sandwich is on top of the central pile, the player who slapped loses the card on top of their hand and it is added to the bottom of their opponent’s hand.  
-_Pop up messages at the top of the screen will highlight the outcome of each slap and provide a heads up if a players acts out of turn._  
+_Pop up messages at the top of the screen will highlight the outcome of each slap and provide a heads up if any players acts out of turn._    
 ![](assets/README-078ab972.png)
 
 #### If one player loses all their cards, they have one chance to not lose and continue the game:
@@ -30,7 +30,7 @@ _Pop up messages at the top of the screen will highlight the outcome of each sla
 * Doubles and Sandwiches are not valid when one player is completely out of cards - in this case, only a Jack can save them!
 * The only way the player who still has cards can win is by slapping the Jack before the player without cards left does
 
-_A score tracker is provided for each player. The button in the bottom left of the screen will reset the score counter._
+_A score tracker is provided for each player. The button in the bottom left of the screen will reset the score counter._  
 ![](assets/README-bd25a3c7.png)
 
 ## Project Goals
