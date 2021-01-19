@@ -15,11 +15,12 @@ var game = new Game();
 // EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
-  hide(popUp);
   var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
   var keyPress = e.code;
   var currentPlayer = game.turnTracker[0];
   var nextPlayer = game.turnTracker[1];
+
+  hide(popUp);
 
   if (keyPress === "KeyQ" || keyPress === "KeyP") {
     playerDraw(keyPress, currentPlayer, nextPlayer);
@@ -30,17 +31,32 @@ window.addEventListener('keydown', function(e) {
   updateDomState();
 });
 
- function playerDraw(keyPress, currentPlayer, nextPlayer) {
-     if ((currentPlayer === '1' && keyPress === 'KeyQ') || (currentPlayer === '2' && keyPress === 'KeyP')) {
-       game.addToCenterPile(currentPlayer, nextPlayer);
-       updateCenterDisplay();
-       updateCurrentTurnDisplay();
-       unhide(centerPileImg);
-     } else {
-       popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
-       unhide(popUp);
-     }
-   }
+function playerDraw(keyPress, currentPlayer, nextPlayer) {
+  if ((currentPlayer === '1' && keyPress === 'KeyQ') || (currentPlayer === '2' && keyPress === 'KeyP')) {
+   game.addToCenterPile(currentPlayer, nextPlayer);
+   addCardToCenterPile();
+   unhide(centerPileImg);
+ } else {
+   popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
+   unhide(popUp);
+ }
+}
+
+function pageLoad() {
+  setLocalStorage();
+  game.initialDeal();
+}
+
+function setLocalStorage() {
+  if (localStorage.getItem('storedWinData') === null) {
+    var winData = {player1: 0, player2: 0};
+    var stringifyWins = JSON.stringify(winData);
+    localStorage.setItem('storedWinData', stringifyWins)
+  } else {
+  var storedWins = getStoredWins();
+  updateWinCount(storedWins);
+  }
+}
 
 function playerSlap(keyPress, aHandIsEmpty) {
   var slapPlayer;
@@ -66,6 +82,12 @@ function playerSlap(keyPress, aHandIsEmpty) {
 }
 
 function updateDomState() {
+  updateCardDisplay();
+  updateCurrentTurnDisplay();
+  updateWinDisplay();
+}
+
+function updateCardDisplay() {
   if (game.player1.hand.length > 0) {
     unhide(p1Card);
   } else if (game.player1.hand.length === 0) {
@@ -81,25 +103,11 @@ function updateDomState() {
   if (game.centerPile.length === 0) {
     hide(centerPileImg);
   }
-
-  var storedWins = getStoredWins();
-  updateWinCount(storedWins);
 }
 
-function pageLoad() {
-  setLocalStorage();
-  game.initialDeal();
-}
-
-function setLocalStorage() {
-  if (localStorage.getItem('storedWinData') === null) {
-    var winData = {player1: 0, player2: 0};
-    var stringifyWins = JSON.stringify(winData);
-    localStorage.setItem('storedWinData', stringifyWins)
-  } else {
+function updateWinDisplay() {
   var storedWins = getStoredWins();
   updateWinCount(storedWins);
-  }
 }
 
 function getStoredWins() {
@@ -113,7 +121,7 @@ function updateWinCount(wins) {
   p2WinCount.innerText = `${wins.player2} WINS`;
 }
 
-function updateCenterDisplay() {
+function addCardToCenterPile() {
   if (game.centerPile.length > 0) {
     var newTopCard = game.centerPile[0];
     centerPileImg.src= newTopCard;
