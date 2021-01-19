@@ -7,13 +7,13 @@ class Game {
   }
 
   shuffle(deck) {
-      var newDeck = deck.slice(0);
-      for (var i = 0; i < 100; i++) {
-        var pulledCard = newDeck.splice(this.getRandomElement(newDeck),1);
-        newDeck.splice(this.getRandomElement(newDeck),0,pulledCard[0]);
-      }
-     return newDeck;
+    var newDeck = deck.slice(0);
+    for (var i = 0; i < 100; i++) {
+      var pulledCard = newDeck.splice(this.getRandomElement(newDeck),1);
+      newDeck.splice(this.getRandomElement(newDeck),0,pulledCard[0]);
     }
+    return newDeck;
+  }
 
   getRandomElement(array) {
     return Math.floor(Math.random() * array.length);
@@ -122,5 +122,5 @@ class Game {
     var cleanLink = assetLink.slice(sliceSpot + 1);
     return cleanLink;
   }
-  
+
 }

@@ -1,4 +1,3 @@
-// DOM ELEMENTS
 var popUp = document.querySelector("#popUp");
 var p1WinCount = document.querySelector("#p1WinCount");
 var p2WinCount = document.querySelector("#p2WinCount");
@@ -9,10 +8,8 @@ var p2Card = document.querySelector("#p2Card");
 var centerPileImg = document.querySelector("#centerPile"); //this is an img
 var howToButton = document.querySelector("button");
 
-// GLOBAL VARIABLES
 var game = new Game();
 
-// EVENT LISTENERS
 window.addEventListener('load', pageLoad);
 window.addEventListener('keydown', function(e) {
   var aHandIsEmpty = (game.player1.hand.length === 0 || game.player2.hand.length === 0);
@@ -33,12 +30,12 @@ window.addEventListener('keydown', function(e) {
 
 function playerDraw(keyPress, currentPlayer, nextPlayer) {
   if ((currentPlayer === '1' && keyPress === 'KeyQ') || (currentPlayer === '2' && keyPress === 'KeyP')) {
-   game.addToCenterPile(currentPlayer, nextPlayer);
-   addCardToCenterPile();
-   unhide(centerPileImg);
- } else {
-   popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
-   unhide(popUp);
+    game.addToCenterPile(currentPlayer, nextPlayer);
+    addCardToCenterPile();
+    unhide(centerPileImg);
+  } else {
+    popUp.innerText = `WAIT YOUR TURN PLAYER ${nextPlayer}!`;
+    unhide(popUp);
  }
 }
 
@@ -53,8 +50,8 @@ function setLocalStorage() {
     var stringifyWins = JSON.stringify(winData);
     localStorage.setItem('storedWinData', stringifyWins)
   } else {
-  var storedWins = getStoredWins();
-  updateWinCount(storedWins);
+    var storedWins = getStoredWins();
+    updateWinCount(storedWins);
   }
 }
 

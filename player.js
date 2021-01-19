@@ -17,4 +17,5 @@ class Player {
     var stringifyWinData = JSON.stringify(parseWinData);
     localStorage.setItem('storedWinData', stringifyWinData);
   }
+  
 }
