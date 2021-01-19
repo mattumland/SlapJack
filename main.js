@@ -133,7 +133,19 @@ function addCardToCenterPile() {
 }
 
 function updateCurrentTurnDisplay() {
+    // var currentPlayerZone = `p${game.turnTracker[0]}Zone`;
+    // var nextPlayerZone = `p${game.turnTracker[1]}Zone`
+    // console.log([currentPlayerZone]);
+    // [currentPlayerZone].classList.add("active-player");
+    // [nextPlayerZone].classList.add("active-player");
 
+  if (game.turnTracker[0] === '1') {
+    p1Zone.classList.add("active-player");
+    p2Zone.classList.remove("active-player");
+  } else if (game.turnTracker[0] === '2') {
+    p2Zone.classList.add("active-player");
+    p1Zone.classList.remove("active-player");
+  }
 }
 
 function hide(element) {
